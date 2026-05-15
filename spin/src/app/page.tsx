@@ -110,7 +110,7 @@ export default function Home() {
     <main className="min-h-screen bg-kawaii-cream p-4 md:p-6 font-nunito">
       {/* Header */}
       <div className="text-center mb-6">
-        <h1 className="font-fredoka text-4xl md:text-5xl font-bold text-kawaii-dark">🎰 Kawaii Roulette</h1>
+        <h1 className="font-fredoka text-4xl md:text-5xl font-bold text-kawaii-dark">🎰 짱귀여운 룰렛</h1>
         <p className="text-sm text-kawaii-dark/50 mt-1">귀여운 카지노 룰렛 🌸</p>
       </div>
 
