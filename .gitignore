@@ -1,36 +1,34 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Monorepo root safety net — each sub-project has its own .gitignore.
+# These patterns guard against accidentally committing build artifacts
+# from any package.
 
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
-.yarn/install-state.gz
-
-# testing
-/coverage
+**/node_modules/
 
 # next.js
-/.next/
-/out/
+**/.next/
+**/out/
 
-# production
-/build
+# build outputs
+**/build/
+**/dist/
 
 # misc
-.DS_Store
+**/.DS_Store
 *.pem
 
 # debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
 
-# local env files
+# env files
 .env*.local
+**/.env*.local
 
 # vercel
-.vercel
+**/.vercel
 
 # typescript
-*.tsbuildinfo
-next-env.d.ts
+**/*.tsbuildinfo
+**/next-env.d.ts
