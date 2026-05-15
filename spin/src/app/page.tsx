@@ -5,15 +5,15 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // ── Slot data ──────────────────────────────────────────────
 const SLOTS = [
-  { number: 1, bg: "#FFB3BA", text: "#8B2A3A" },
-  { number: 2, bg: "#C9B1FF", text: "#4A2080" },
-  { number: 3, bg: "#A8E6CF", text: "#2D7A5A" },
-  { number: 4, bg: "#FFDAC1", text: "#8B4A1A" },
-  { number: 5, bg: "#B5E8F7", text: "#1A6A8B" },
-  { number: 6, bg: "#FFF5BA", text: "#7A6A00" },
-  { number: 7, bg: "#FF8FAB", text: "#7A1A35" },
-  { number: 8, bg: "#D4B1FF", text: "#3A1A7A" },
-];
+  { number: 1, bg: "#FFB3BA", stripe: null,      text: "#8B2A3A" }, // pink solid
+  { number: 2, bg: "#A8E6CF", stripe: "#7DD3A8", text: "#2D7A5A" }, // mint stripe
+  { number: 3, bg: "#B5E8F7", stripe: null,      text: "#1A6A8B" }, // sky solid
+  { number: 4, bg: "#C9B1FF", stripe: "#A88FE0", text: "#4A2080" }, // lavender stripe
+  { number: 5, bg: "#C8F0A0", stripe: null,      text: "#4A7A0A" }, // pastel green solid
+  { number: 6, bg: "#FFDAC1", stripe: "#FFB58A", text: "#8B4A1A" }, // peach stripe
+  { number: 7, bg: "#A0E0EC", stripe: null,      text: "#0A5570" }, // sky blue solid
+  { number: 8, bg: "#FF8FAB", stripe: "#E66B8A", text: "#7A1A35" }, // coral stripe
+] as Array<{ number: number; bg: string; stripe: string | null; text: string }>;
 const N = SLOTS.length;
 const CX = 200, CY = 200, R = 168, OUTER_R = 184;
 
@@ -204,13 +204,34 @@ export default function Home() {
               style={{ transformOrigin: "center center" }}
             >
               <svg viewBox="0 0 400 400" width="100%" height="100%">
-                <circle cx={CX} cy={CY} r={OUTER_R + 5} fill="none" stroke="#FFB3BA" strokeWidth={3} opacity={0.5} />
-                <circle cx={CX} cy={CY} r={OUTER_R} fill="none" stroke="#C9B1FF" strokeWidth={8} opacity={0.7} />
+                <defs>
+                  {SLOTS.map((slot, i) =>
+                    slot.stripe ? (
+                      <pattern
+                        key={`p-${i}`}
+                        id={`stripe-${i}`}
+                        patternUnits="userSpaceOnUse"
+                        width="14" height="14"
+                        patternTransform="rotate(45)"
+                      >
+                        <rect width="14" height="14" fill={slot.bg} />
+                        <rect x="0" y="0" width="14" height="6" fill={slot.stripe} opacity={0.7} />
+                      </pattern>
+                    ) : null
+                  )}
+                </defs>
+                <circle cx={CX} cy={CY} r={OUTER_R + 5} fill="none" stroke="#A8E6CF" strokeWidth={3} opacity={0.6} />
+                <circle cx={CX} cy={CY} r={OUTER_R} fill="none" stroke="#B5E8F7" strokeWidth={8} opacity={0.8} />
                 {SLOTS.map((slot, i) => {
                   const lp = labelPos(i);
                   return (
                     <g key={i}>
-                      <path d={wedgePath(i)} fill={slot.bg} stroke="white" strokeWidth={2} />
+                      <path
+                        d={wedgePath(i)}
+                        fill={slot.stripe ? `url(#stripe-${i})` : slot.bg}
+                        stroke="white"
+                        strokeWidth={2}
+                      />
                       <text
                         x={lp.x} y={lp.y}
                         textAnchor="middle" dominantBaseline="central"
